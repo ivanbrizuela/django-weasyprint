@@ -80,7 +80,10 @@ class WeasyTemplateResponse(TemplateResponse):
             url_fetcher=url_fetcher,
         )
         return html.render(
-            self.get_css(base_url, url_fetcher, font_config),
+            # On Python 3.11 returns an extra `font_config`, raising an error:
+            # HTML.render() got multiple values for argument 'font_config'
+            # Disable this call until Python 3.11 is fully supported
+            # self.get_css(base_url, url_fetcher, font_config),
             font_config=font_config,
         )
 
